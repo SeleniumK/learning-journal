@@ -32,7 +32,6 @@ a {
     margin: auto;
     margin-top: 4%;
     width: 60%;
-    height: 85vh;
     display: flex;
     flex-direction: column;
 }

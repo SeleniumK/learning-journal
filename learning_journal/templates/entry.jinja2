@@ -1,9 +1,13 @@
 {% extends "base.jinja2" %}
 {%block content%}
-<h2>{{ entry.title }}</h2>
-<h4>{{ entry.time }}</h4>
-<p>{{ entry.text }}</p>
-<h5><a href='/{{ entry.id }}/edit'>Edit This Post</a></h5>
+
+<section id="entry-view">
+    <h2>{{ entry.title }}</h2>
+    <h4>{{ entry.time }}</h4>
+    <p>{{ entry.text }}</p>
+    <h5><a href={{ request.route_url('edit_entry', entry=entry.id) }} id="edit-link">Edit This Post</a></h5>
+</section>
+
 {%endblock content%}
 
 

@@ -4,15 +4,15 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>vimpy technical blog</title>
-    <link rel="stylesheet" href="../static/pstyle.css">
+    <link rel="stylesheet" href="/../static/pstyle.css" type='text/css'>
 </head>
 <body>
     <div class="container">
         <header id="header" class="">
             <nav>
                 <ul>
-                    <li><a href="index.html" title="Home">Home</a></li>
-                    <li><a href="new_entry.html" title="New Entry">New Entry</a></li>
+                    <li><a href= {{ request.route_url("home")}} title="Home">Home</a></li>
+                    <li><a href= {{ request.route_url("add_entry")}} title="New Entry">New Entry</a></li>
                 </ul>
             </nav>
             <h1>VimPY</h1>    
