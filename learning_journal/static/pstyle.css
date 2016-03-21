@@ -1,4 +1,5 @@
 /*rReset*/
+
 *{
     padding: 0;
     margin: 0;
@@ -31,6 +32,7 @@ a {
     margin: auto;
     margin-top: 4%;
     width: 60%;
+    height: 85vh;
     display: flex;
     flex-direction: column;
 }
@@ -48,12 +50,7 @@ header {
     margin: 3.5% 0;
 }
 
-header h1 {
-    margin-top: 3%;
-    padding: 2%;
-
-}
-header h2{
+header h2 {
     margin: 2%;
 }
 
@@ -65,6 +62,9 @@ nav ul{
     justify-content: flex-end;
 }
 
+nav li{
+    display: inline-block;
+}
 
 /*body*/
 
@@ -75,10 +75,5 @@ nav ul{
 /*footer*/
 #citation {
     font-size: .3em;
-}
-
-#entry-view{
-    margin-top: 5%;
-    padding-top: 3%;
 }
 
