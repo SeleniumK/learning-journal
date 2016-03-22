@@ -43,6 +43,7 @@ def main(global_config, **settings):
     config.add_route('secure', '/secure')
     config.add_route('add_entry', '/write')
     config.add_route('login', '/login')
+    # config.add_route('logout', '/logout')
     config.add_route('entry', '/entry/{entry}')
     config.add_route('edit_entry', '/entry/{entry}/edit')
     config.scan()
