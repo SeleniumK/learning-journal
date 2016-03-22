@@ -1,24 +1,22 @@
+import os
+from passlib.apps import custom_app_context as pwd_context
+
 USERS = {
-    'viewer': 'viewer',
-    'user': 'user',
-    'admin': 'admin',
-}
-
-
-GROUPS = {
-    'admin': ['g:admin'],
-    'user': ['g:user'],
+    os.environ.get("AUTH_USERNAME"): ['group:users']
 }
 
 
 def groupfinder(userid, request):
     if userid in USERS:
-        return GROUPS.get(userid, [])
+        return USERS.get(userid, [])
 
-# def groupfinder(userid, request):
-#     groups = []
-#     if userid.lower() in request.approved:
-#         groups.append('g:users')
-#     if userid.lower() in request.admins:
-#         groups.append('g:admins')
-#     return groups or None
+
+def check_username(username):
+    auth_users = os.environ.get("AUTH_USERNAME", "not the username")
+    if username in auth_users:
+        return True
+
+
+def check_pw(pw):
+    hashed = pwd_context.encrypt(os.environ.get("AUTH_PASSWORD", "this is not a password"))
+    return pwd_context.verify(pw, hashed)

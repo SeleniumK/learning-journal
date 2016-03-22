@@ -5,9 +5,8 @@ from learning_journal.models import DBSession, Base, Entry
 import os
 
 
-user = os.environ.get('USER', 'MunirIbrahim')
-TEST_DATABASE_URL = 'postgresql://{}:password@localhost:5432/test_learning'.format(user)
-
+TEST_DATABASE_URL = 'postgresql://seleniumk:password@localhost:5432/test_learning'
+AUTH_DATA = {"username": "seleniumk", "password": "python"}
 
 @pytest.fixture(scope='session')
 def sqlengine(request):
@@ -59,3 +58,36 @@ def new_entry(request):
 
     request.addfinalizer(teardown)
     return add_entry
+
+
+@pytest.fixture()
+def auth_env():
+    from learning_journal.security import pwd_context
+    os.environ['AUTH_USERNAME'] = 'seleniumk'
+    os.environ['AUTH_PASSWORD'] = 'python'
+
+
+@pytest.fixture()
+def authenticated_app(app, auth_env):
+    data = AUTH_DATA
+    app.post('/login', data)
+    return app
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

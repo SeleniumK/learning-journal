@@ -1,11 +1,10 @@
 from pyramid.view import (view_config, forbidden_view_config)
 from pyramid.security import (remember, forget)
-# from wtforms import (Form, BooleanField, StringField, validators)
 import pyramid.httpexceptions as ex
 import markdown
 from jinja2 import Markup
 from .models import (DBSession, Entry, NewEntry, LoginPage)
-from .security import USERS
+from learning_journal.security import (check_pw, check_username)
 
 
 @view_config(route_name='home', renderer='templates/list.jinja2', permission='view')
@@ -32,7 +31,7 @@ def add_new(request):
         DBSession.add(entry)
         DBSession.flush()
         return ex.HTTPFound(request.route_url('entry', entry=entry.id))
-    return {'form': form, 'logged_in': request.authenticated_userid}
+    return {'form': form}
 
 
 @view_config(route_name="edit_entry", renderer="templates/edit.jinja2", permission='edit')
@@ -44,7 +43,7 @@ def edit_existing(request):
     if request.POST and form.validate():
         form.populate_obj(this_entry)
         return ex.HTTPFound(request.route_url('entry', entry=post_id))
-    return {'form': form, 'logged_in': request.authenticated_userid}
+    return {'form': form}
 
 
 @view_config(context=".models.DefaultRoot", route_name="login", renderer="templates/login.jinja2")
@@ -57,13 +56,13 @@ def login(request):
     if referrer == login_url: referrer = '/'
     came_from = request.params.get('came_from', referrer)
 
-    if request.POST and form.validate():
-        username = request.params['username']
-        password = request.params['password']
-        if USERS.get(username) == password:
+    if request.POST:
+        username = request.params.get('username', '')
+        password = request.params.get('password', "")
+        if check_username(username) and check_pw(password):
             headers = remember(request, username)
             return ex.HTTPFound(location=came_from, headers=headers)
-    message = "That login failed!"
+        message = "That login failed!"
 
     return {
         "form": form,
@@ -79,30 +78,3 @@ def login(request):
 def logout(request):
     headers = forget(request)
     return ex.HTTPFound(location=request.resource_url(request.context), headers=headers)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

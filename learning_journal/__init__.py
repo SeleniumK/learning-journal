@@ -9,7 +9,7 @@ from .models import (
 from pyramid.authentication import AuthTktAuthenticationPolicy
 from pyramid.authorization import ACLAuthorizationPolicy
 from .security import groupfinder
-from cryptacular.bcrypt import BCRYPTPasswordManager
+
 
 def main(global_config, **settings):
     """Return a Pyramid WSGI application."""
@@ -20,12 +20,11 @@ def main(global_config, **settings):
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
 
-    manager = BCRYPTPasswordManager()
-    settings['auth.username'] = os.environ.get('auth_username', 'admin')
-    settings['auth.password'] = os.environ.get('auth_password', manager.encode('secret'))
+    settings['auth.username'] = os.environ.get('AUTH_USERNAME', '')
+    settings['auth.password'] = os.environ.get('AUTH_PASSWORD', "")
     auth_secret = os.environ.get('JOURNAL_AUTH_SECRET', 'itsaseekrit')
+
     authn_policy = AuthTktAuthenticationPolicy(
-        # 'secret'
         secret=auth_secret,
         callback=groupfinder,
         hashalg='sha512'
@@ -41,6 +40,7 @@ def main(global_config, **settings):
     config.include('pyramid_jinja2')
     config.add_static_view('static', 'static', cache_max_age=3600)
     config.add_route('home', '/')
+    config.add_route('secure', '/secure')
     config.add_route('add_entry', '/write')
     config.add_route('login', '/login')
     config.add_route('entry', '/entry/{entry}')
