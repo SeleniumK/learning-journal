@@ -20,7 +20,7 @@ def detail_view(request):
     if this_entry is None:
         raise ex.HTTPNotFound()
     this_entry.text = Markup(markdown.markdown(this_entry.text))
-    return {'entry': this_entry, 'logged_in': request.authenticated_userid}
+    return {'entry': this_entry}
 
 
 @view_config(route_name='add_entry', renderer='templates/add.jinja2', permission='edit')
