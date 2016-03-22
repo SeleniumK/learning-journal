@@ -52,25 +52,25 @@ def edit_existing(request):
 def login(request):
     form = LoginPage(request.POST)
     login_url = request.resource_url(request.context, "login")
+    message, username, password = "", "", ""
     referrer = request.url
-    if referrer == login_url:
-        referrer = '/'
+    if referrer == login_url: referrer = '/'
     came_from = request.params.get('came_from', referrer)
-    message, login, password = "", "", ""
 
-    if 'form.submitted' in request.params:
-        login = request.params['login']
+    if request.POST and form.validate():
+        username = request.params['username']
         password = request.params['password']
-        if USERS.get(login) == password:
-            headers = remember(request, login)
+        if USERS.get(username) == password:
+            headers = remember(request, username)
             return ex.HTTPFound(location=came_from, headers=headers)
-        message = "That login failed!"
+    message = "That login failed!"
 
     return {
+        "form": form,
         "message": message,
         "url": request.application_url + '/login',
         "came_from": came_from,
-        "login": login,
+        "username": username,
         "password": password
     }
 

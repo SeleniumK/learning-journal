@@ -6,7 +6,7 @@ from sqlalchemy import (
 )
 
 import datetime
-from wtforms import Form, StringField, TextAreaField, Password, Text
+from wtforms import Form, StringField, TextAreaField, PasswordField
 from sqlalchemy.ext.declarative import declarative_base
 
 from sqlalchemy.orm import (
@@ -64,5 +64,5 @@ class NewEntry(Form):
 class LoginPage(Form):
     """Create Form for Login Page"""
 
-    username = Text('username')
-    password = Password('password')
+    username = StringField('username')
+    password = PasswordField('password')

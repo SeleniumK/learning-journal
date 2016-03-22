@@ -5,7 +5,10 @@ USERS = {
 }
 
 
-GROUPS = {'admin': ['g:admin']}
+GROUPS = {
+    'admin': ['g:admin'],
+    'user': ['g:user'],
+}
 
 
 def groupfinder(userid, request):
