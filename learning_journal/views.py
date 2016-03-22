@@ -10,7 +10,7 @@ from learning_journal.security import (check_pw, check_username)
 @view_config(route_name='home', renderer='templates/list.jinja2', permission='view')
 def list_view(request):
     entries = DBSession.query(Entry).order_by(Entry.created.desc()).all()
-    return {'entries': entries}
+    return {'entries': entries, 'logged_in': request.authenticated_userid}
 
 
 @view_config(route_name='entry', renderer='templates/entry.jinja2', permission='view')
@@ -20,7 +20,7 @@ def detail_view(request):
     if this_entry is None:
         raise ex.HTTPNotFound()
     this_entry.text = Markup(markdown.markdown(this_entry.text))
-    return {'entry': this_entry}
+    return {'entry': this_entry, 'logged_in': request.authenticated_userid}
 
 
 @view_config(route_name='add_entry', renderer='templates/add.jinja2', permission='edit')
@@ -31,7 +31,7 @@ def add_new(request):
         DBSession.add(entry)
         DBSession.flush()
         return ex.HTTPFound(request.route_url('entry', entry=entry.id))
-    return {'form': form}
+    return {'form': form, 'logged_in': request.authenticated_userid}
 
 
 @view_config(route_name="edit_entry", renderer="templates/edit.jinja2", permission='edit')
@@ -43,7 +43,7 @@ def edit_existing(request):
     if request.POST and form.validate():
         form.populate_obj(this_entry)
         return ex.HTTPFound(request.route_url('entry', entry=post_id))
-    return {'form': form}
+    return {'form': form, 'logged_in': request.authenticated_userid}
 
 
 @view_config(context=".models.DefaultRoot", route_name="login", renderer="templates/login.jinja2")
