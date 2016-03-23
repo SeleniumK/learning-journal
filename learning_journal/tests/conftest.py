@@ -53,7 +53,7 @@ def new_entry(request):
     DBSession.flush()
 
     def teardown():
-        DBSession.query(Entry).filter(Entry.id == add_entry.id).delete()
+        DBSession.delete(add_entry)
         DBSession.flush()
 
     request.addfinalizer(teardown)
@@ -64,7 +64,7 @@ def new_entry(request):
 def auth_env():
     from learning_journal.security import pwd_context
     os.environ['AUTH_USERNAME'] = 'seleniumk'
-    os.environ['AUTH_PASSWORD'] = 'python'
+    os.environ['AUTH_PASSWORD'] = '$6$rounds=693848$h6sCnKdbiqerKGQu$ZxDfFwBnZbWAKYVdF9dHVTXfjVncBEBjoOMsHKgkVRXEOeEbtEzAe/350dgWuTLwuSQ5UB1/d..wP8MBidsTg0'
 
 
 @pytest.fixture()

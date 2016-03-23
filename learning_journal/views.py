@@ -5,6 +5,8 @@ import markdown
 from jinja2 import Markup
 from .models import (DBSession, Entry, NewEntry, LoginPage)
 from learning_journal.security import (check_pw, check_username)
+import urllib
+from markupsafe import Markup
 
 
 @view_config(route_name='home', renderer='templates/list.jinja2', permission='view')
