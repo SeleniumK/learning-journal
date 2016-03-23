@@ -20,7 +20,7 @@ requires = [
     'psycopg2',
     'WTForms',
     'markdown',
-    'cryptacular',
+    'passlib',
 ]
 
 tests_require = ['pytest', 'pytest-watch', 'tox', 'webtest', 'pytest-cov']
@@ -35,7 +35,7 @@ setup(name='learning_journal',
         "Framework :: Pyramid",
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
-        ],
+      ],
       author='',
       author_email='',
       url='',
