@@ -21,7 +21,6 @@ DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 Base = declarative_base()
 
 
-
 class DefaultRoot(object):
     """Default Root."""
 
@@ -50,9 +49,9 @@ class Entry(Base):
     def __acl__(self):
         """Acl."""
         return [
-            (allow, everyone, view),
-            (allow, 'group:users', read),
-            (allow, self.author.username, edit),
+            (Allow, Everyone, 'view'),
+            (Allow, 'group:users', 'read'),
+            (Allow, self.author.username, 'edit'),
         ]
 
 
@@ -62,8 +61,9 @@ class NewEntry(Form):
     title = StringField('Title')
     text = TextAreaField('Text')
 
+
 class LoginPage(Form):
-    """Create Form for Login Page"""
+    """Create Form for Login Page."""
 
     username = StringField('username')
     password = PasswordField('password')
