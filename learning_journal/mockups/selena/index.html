@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
+    <title>vimpy technical blog</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,29 +12,46 @@
             <nav>
                 <ul>
                     <li><a href="index.html" title="Home">Home</a></li>
-                    <li><a href="new_entry.html" title="New Entry">New Entry</a></li>
+                    <li><a href="new.html" title="New Entry">New Entry</a></li>
                 </ul>
             </nav>
             <h1>VimPY</h1>    
             <h2>Python, Vi, and other technical musings.</h2>
         </header>
-        {% block content %}
-        <section>
+        <section id="list-articles">
             <ul>
-                {% if entries %}
-                {% for entry in entries%}
                 <li>
-                   <a href='/entry/{{ entry.id }}'>
-                    <h3 class="entry-title">{{ entry.title }}:</h3>
-                    <p class="created">{{ entry.created }}</p>
-                   </a>
+                    <a href='entry.html'>
+                    <h3 class="entry-title">Dummy Entry:</h3>
+                    <p class="created">Date</p>
+                    </a>
                 </li>
-                {% endfor %}
-                {% else %}
-                <p>No entries here yet!</p>
-                {% endif %}
+                <li>
+                    <a href='entry.html'>
+                    <h3 class="entry-title">Dummy Entry:</h3>
+                    <p class="created">Date</p>
+                    </a>
+                </li>
+                <li>
+                    <a href='entry.html'>
+                    <h3 class="entry-title">Dummy Entry:</h3>
+                    <p class="created">Date</p>
+                    </a>
+                </li>
+                <li>
+                    <a href='entry.html'>
+                    <h3 class="entry-title">Dummy Entry:</h3>
+                    <p class="created">Date</p>
+                    </a>
+                </li>
+                <li>
+                    <a href='entry.html'>
+                    <h3 class="entry-title">Dummy Entry:</h3>
+                    <p class="created">Date</p>
+                    </a>
+                </li>
             </ul>
-        {% endblock content %}
+        </section>
     </div>
     <footer>
         <a id=citation href='http://www.freepik.com/free-vector/green-abstract-background_774104.htm'>Designed by Freepik</a>
