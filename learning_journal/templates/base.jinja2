@@ -12,13 +12,22 @@
             <nav>
                 <ul>
                     <li><a href= {{ request.route_url("home")}} title="Home">Home</a></li>
+                    {% if request.has_permission('edit') %}
                     <li><a href= {{ request.route_url("add_entry")}} title="New Entry">New Entry</a></li>
+                    {% endif %}
+                    {% if not request.authenticated_userid %}
+                    <li><a href= {{ request.route_url("login") }}>Log In </a></li>
+                    {% endif %}
+                    {% if request.authenticated_userid %}
+                    <a href="{{ request.application_url }}/logout">Logout</a>
+                    {% endif %}
                 </ul>
             </nav>
             <h1>VimPY</h1>    
             <h2>Python, Vi, and other technical musings.</h2>
         </header>
         {% block content %}
+        <p>No entries here so far</p>
         {% endblock content %}
     </div>
     <footer>

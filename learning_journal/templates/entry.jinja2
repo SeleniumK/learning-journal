@@ -4,10 +4,15 @@
 <section id="entry-view">
     <h2>{{ entry.title }}</h2>
     <h4>{{ entry.time }}</h4>
-    <p>{{ entry.text }}</p>
-    <h5><a href={{ request.route_url('edit_entry', entry=entry.id) }} id="edit-link">Edit This Post</a></h5>
-</section>
 
+    {% if request.has_permission('edit') %}
+    <h5><a href={{ request.route_url('edit_entry', entry=entry.id) }} id="edit-link">Edit This Post</a></h5>
+    {% endif %}
+    
+    <p>{{ entry.text }}</p>
+
+
+</section>
 {%endblock content%}
 
 
