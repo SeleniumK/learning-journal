@@ -15,8 +15,5 @@
         <p>No entries here so far</p>
         {% endif %}
     </ul>
-    {% if not logged_in %}
-    <a href= {{ request.route_url("login")}}> Log in! </a>
-    {% endif %}
 </section>
 {% endblock %}
