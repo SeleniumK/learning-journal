@@ -9,8 +9,6 @@ coverage==4.0.3
 decorator==4.0.9
 docopt==0.6.2
 gnureadline==6.3.3
-ipython==4.1.2
-ipython-genutils==0.1.0
 Jinja2==2.8
 Mako==1.0.4
 Markdown==2.6.6

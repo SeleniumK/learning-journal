@@ -21,6 +21,8 @@ requires = [
     'WTForms',
     'markdown',
     'passlib',
+    'cherrpy',
+    'pastescript',
 ]
 
 tests_require = ['pytest', 'pytest-watch', 'tox', 'webtest', 'pytest-cov']
