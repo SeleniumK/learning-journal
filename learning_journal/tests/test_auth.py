@@ -1,5 +1,5 @@
 import os
-AUTH_DATA = {"username": "seleniumk", "password": "python"}
+AUTH_DATA = {"username": "seleniumk", "password": "$6$rounds=693848$h6sCnKdbiqerKGQu$ZxDfFwBnZbWAKYVdF9dHVTXfjVncBEBjoOMsHKgkVRXEOeEbtEzAe/350dgWuTLwuSQ5UB1/d..wP8MBidsTg0"}
 
 
 def test_access_to_view(authenticated_app):
