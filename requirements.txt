@@ -13,6 +13,7 @@ gnureadline==6.3.3
 ipython==4.1.2
 ipython-genutils==0.1.0
 Jinja2==2.8
+-e git+https://github.com/SeleniumK/learning-journal.git@c00281f2f2683c30454101e53683554ee29db71c#egg=learning_journal
 Mako==1.0.4
 Markdown==2.6.6
 MarkupSafe==0.23
