@@ -37,6 +37,7 @@ def import_entries():
     return get_compatible_dicts(json_listings)
 
 
-def populate_entries_from_api():
+if __name__ == "__main__":
     for entry in import_entries():
         populate_db(entry)
+

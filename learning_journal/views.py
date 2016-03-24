@@ -5,23 +5,23 @@ import markdown
 from jinja2 import Markup
 from .models import (DBSession, Entry, NewEntry, LoginPage)
 from learning_journal.security import (check_pw, check_username)
-import requests
-import os
 from .apihit import (import_entries, populate_db)
 
 
+# @view_config(renderer='json', xhr=True)
 @view_config(route_name='home', renderer='templates/list.jinja2', permission='view')
 def list_view(request):
-    rows = DBSession.query(Entry).count()
-    print(rows)
-    if rows is 0:
-        for entry in import_entries():
-            populate_db(entry)
-        print('populating')
+    # rows = DBSession.query(Entry).count()
+    # print(rows)
+    # if rows is 0:
+    #     for entry in import_entries():
+    #         populate_db(entry)
+    #     print('populating')
     entries = DBSession.query(Entry).order_by(Entry.created.desc()).all()
     return {'entries': entries}
 
 
+# @view_config(renderer='json', xhr=True)
 @view_config(route_name='entry', renderer='templates/entry.jinja2', permission='view')
 def detail_view(request):
     this_id = request.matchdict['entry']
@@ -32,6 +32,7 @@ def detail_view(request):
     return {'entry': this_entry}
 
 
+# @view_config(renderer='json', xhr=True)
 @view_config(route_name='add_entry', renderer='templates/add.jinja2', permission='edit')
 def add_new(request):
     form = NewEntry(request.POST)
