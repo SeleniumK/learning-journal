@@ -8,12 +8,7 @@ from sqlalchemy import (
 import datetime
 from wtforms import Form, StringField, TextAreaField, PasswordField
 from sqlalchemy.ext.declarative import declarative_base
-
-from sqlalchemy.orm import (
-    scoped_session,
-    sessionmaker,
-)
-
+from sqlalchemy.orm import (scoped_session, sessionmaker)
 from zope.sqlalchemy import ZopeTransactionExtension
 from pyramid.security import (Allow, Everyone, ALL_PERMISSIONS)
 import os
