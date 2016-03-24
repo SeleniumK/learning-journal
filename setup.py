@@ -22,7 +22,6 @@ requires = [
     'cherrypy',
     'pastescript',
     'requests',
-    'json',
 ]
 
 tests_require = ['pytest', 'pytest-watch', 'tox', 'webtest', 'pytest-cov']
