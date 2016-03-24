@@ -7,11 +7,7 @@ from pyramid.paster import (
     setup_logging,
     )
 from pyramid.scripts.common import parse_vars
-from ..models import (
-    DBSession,
-    Entry,
-    Base,
-    )
+from ..models import (DBSession, Entry, Base)
 
 
 def usage(argv):

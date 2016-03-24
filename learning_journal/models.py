@@ -16,6 +16,7 @@ from sqlalchemy.orm import (
 
 from zope.sqlalchemy import ZopeTransactionExtension
 from pyramid.security import (Allow, Everyone, ALL_PERMISSIONS)
+import os
 
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 Base = declarative_base()
@@ -45,14 +46,14 @@ class Entry(Base):
     text = Column(Unicode)
     created = Column(DateTime, default=datetime.datetime.utcnow)
 
-    @property
-    def __acl__(self):
-        """Acl."""
-        return [
-            (Allow, Everyone, 'view'),
-            (Allow, 'group:users', 'read'),
-            (Allow, self.author.username, 'edit'),
-        ]
+    def __json__(self, request):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'text': self.text,
+            'created': self.created,
+            'markdown': self.markdown
+        }
 
 
 class NewEntry(Form):

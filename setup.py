@@ -15,7 +15,6 @@ requires = [
     'SQLAlchemy',
     'transaction',
     'zope.sqlalchemy',
-    # 'waitress',
     'psycopg2',
     'WTForms',
     'markdown',
