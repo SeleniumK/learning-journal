@@ -1,4 +1,4 @@
 #!/bin/bash
 set -e
 python setup.py develop
-python ./learning_journal/scripts/initializedb.py production.ini
+python learning-journal/learning_journal/scripts/initializedb.py production.ini
