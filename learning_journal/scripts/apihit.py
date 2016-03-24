@@ -1,14 +1,16 @@
 import os
 import requests
 import json
-from learning_journal.models import (DBSession, Entry, NewEntry, LoginPage)
+from learning_journal.models import DBSession, Base, Entry
+import transaction
+from sqlalchemy import create_engine
 
 
 def get_journal_entries():
     url = "https://sea401d2.crisewing.com/api/export?apikey="
     key = os.environ.get("JOURNAL_KEY", "")
     params = {"username": "SeleniumK"}
-    response = requests.get(url+key, params=params)
+    response = requests.get(url + key, params=params)
     response.raise_for_status()
     return response.text
 
@@ -28,7 +30,6 @@ def get_compatible_dicts(json_listings):
 def populate_db(listing):
     entry = Entry(**listing)
     DBSession.add(entry)
-    DBSession.flush()
 
 
 def import_entries():
@@ -38,8 +39,13 @@ def import_entries():
 
 
 def main():
-    for entry in import_entries():
-        populate_db(entry)
+    database_url = os.environ.get('DATABASE_URL', None)
+    engine = create_engine(database_url)
+    DBSession.configure(bind=engine)
+    Base.metadata.create_all(engine)
+    with transaction.manager:
+        for entry in import_entries():
+            populate_db(entry)
 
 
 if __name__ == "__main__":
