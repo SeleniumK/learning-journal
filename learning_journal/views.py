@@ -1,8 +1,6 @@
 from pyramid.view import (view_config, forbidden_view_config)
 from pyramid.security import (remember, forget)
 import pyramid.httpexceptions as ex
-import markdown
-from jinja2 import Markup
 from .models import (DBSession, Entry, NewEntry, LoginPage)
 from learning_journal.security import (check_pw, check_username)
 
@@ -20,7 +18,6 @@ def detail_view(request):
     this_entry = DBSession.query(Entry).get(this_id)
     if this_entry is None:
         raise ex.HTTPNotFound()
-    this_entry.text = Markup(markdown.markdown(this_entry.text))
     return {'entry': this_entry}
 
 
@@ -36,6 +33,7 @@ def add_new(request):
     return {'form': form}
 
 
+@view_config(xhr=True, renderer='json')
 @view_config(route_name="edit_entry", renderer="templates/edit.jinja2", permission='edit')
 def edit_existing(request):
     post_id = request.matchdict['entry']

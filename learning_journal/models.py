@@ -12,6 +12,7 @@ from sqlalchemy.orm import (scoped_session, sessionmaker)
 from zope.sqlalchemy import ZopeTransactionExtension
 from pyramid.security import (Allow, Everyone, ALL_PERMISSIONS)
 import os
+import markdown
 
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 Base = declarative_base()
@@ -40,6 +41,11 @@ class Entry(Base):
     title = Column(Unicode(120))
     text = Column(Unicode)
     created = Column(DateTime, default=datetime.datetime.utcnow)
+
+    @property
+    def markdown_text(self):
+        md = markdown.Markdown(safe_mode='replace', html_replacement_text='--RAW HTML NOT ALLOWED --')
+        return md.convert(self.text)
 
     def __json__(self, request):
         return {

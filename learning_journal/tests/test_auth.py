@@ -57,9 +57,9 @@ def test_get_login_view(app):
     assert response.status_code == 200
 
 
-def test_post_login_success(app, auth_env):
-    response = app.post('/login', AUTH_DATA)
-    assert response.status_code == 302
+def test_post_login_success(authenticated_app, auth_env):
+    response = authenticated_app.post('/login', AUTH_DATA)
+    assert response.status_code == 200
 
 
 def test_post_login_success_redirects_home(app, auth_env):
