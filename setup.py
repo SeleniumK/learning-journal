@@ -21,6 +21,7 @@ requires = [
     'passlib',
     'cherrypy',
     'pastescript',
+    'requests',
 ]
 
 tests_require = ['pytest', 'pytest-watch', 'tox', 'webtest', 'pytest-cov']
