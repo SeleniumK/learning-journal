@@ -12,14 +12,11 @@
             <nav>
                 <ul>
                     <li><a href= {{ request.route_url("home")}} title="Home">Home</a></li>
-                    {% if request.has_permission('edit') %}
-                    <li><a href= {{ request.route_url("add_entry")}} title="New Entry">New Entry</a></li>
-                    {% endif %}
-                    {% if not request.authenticated_userid %}
-                    <li><a href= {{ request.route_url("login") }}>Log In </a></li>
-                    {% endif %}
                     {% if request.authenticated_userid %}
+                    <li><a href= {{ request.route_url("add_entry")}} title="New Entry">New Entry</a></li>
                     <a href="{{ request.application_url }}/logout">Logout</a>
+                    {% else %}
+                    <li><a href= {{ request.route_url("login") }}>Login</a></li>
                     {% endif %}
                 </ul>
             </nav>

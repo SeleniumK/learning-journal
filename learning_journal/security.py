@@ -19,5 +19,4 @@ def check_username(username):
 
 def check_pw(pw):
     hashed = os.environ.get("AUTH_PASSWORD", "not password")
-    print(hashed)
     return pwd_context.verify(pw, hashed)

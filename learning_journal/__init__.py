@@ -1,11 +1,7 @@
 from pyramid.config import Configurator
 from sqlalchemy import engine_from_config
 import os
-from .models import (
-    DBSession,
-    Base,
-    DefaultRoot,
-)
+from .models import (DBSession, Base, DefaultRoot)
 from pyramid.authentication import AuthTktAuthenticationPolicy
 from pyramid.authorization import ACLAuthorizationPolicy
 from .security import groupfinder
@@ -20,10 +16,7 @@ def main(global_config, **settings):
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
 
-    settings['auth.username'] = os.environ.get('AUTH_USERNAME', '')
-    settings['auth.password'] = os.environ.get('AUTH_PASSWORD', "")
     auth_secret = os.environ.get('JOURNAL_AUTH_SECRET', 'itsaseekrit')
-
     authn_policy = AuthTktAuthenticationPolicy(
         secret=auth_secret,
         callback=groupfinder,
@@ -43,7 +36,6 @@ def main(global_config, **settings):
     config.add_route('secure', '/secure')
     config.add_route('add_entry', '/write')
     config.add_route('login', '/login')
-    # config.add_route('logout', '/logout')
     config.add_route('entry', '/entry/{entry}')
     config.add_route('edit_entry', '/entry/{entry}/edit')
     config.scan()

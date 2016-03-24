@@ -5,12 +5,18 @@ import markdown
 from jinja2 import Markup
 from .models import (DBSession, Entry, NewEntry, LoginPage)
 from learning_journal.security import (check_pw, check_username)
-import urllib
-from markupsafe import Markup
+import requests
+import os
+from .apihit import populate_entries_from_api
 
 
 @view_config(route_name='home', renderer='templates/list.jinja2', permission='view')
 def list_view(request):
+    rows = DBSession.query(Entry).count()
+    print(rows)
+    if rows is 0:
+        populate_entries_from_api()
+        print('populating')
     entries = DBSession.query(Entry).order_by(Entry.created.desc()).all()
     return {'entries': entries}
 
@@ -64,7 +70,7 @@ def login(request):
         if check_username(username) and check_pw(password):
             headers = remember(request, username)
             return ex.HTTPFound(location=came_from, headers=headers)
-        message = "That login failed!"
+        message = "That login failed! Try again"
 
     return {
         "form": form,
