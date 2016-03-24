@@ -5,18 +5,10 @@ import markdown
 from jinja2 import Markup
 from .models import (DBSession, Entry, NewEntry, LoginPage)
 from learning_journal.security import (check_pw, check_username)
-from .apihit import (import_entries, populate_db)
 
 
-# @view_config(renderer='json', xhr=True)
 @view_config(route_name='home', renderer='templates/list.jinja2', permission='view')
 def list_view(request):
-    # rows = DBSession.query(Entry).count()
-    # print(rows)
-    # if rows is 0:
-    #     for entry in import_entries():
-    #         populate_db(entry)
-    #     print('populating')
     entries = DBSession.query(Entry).order_by(Entry.created.desc()).all()
     return {'entries': entries}
 
