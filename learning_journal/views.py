@@ -13,6 +13,7 @@ from .apihit import populate_entries_from_api
 @view_config(route_name='home', renderer='templates/list.jinja2', permission='view')
 def list_view(request):
     rows = DBSession.query(Entry).count()
+    print(rows)
     if rows is 0:
         populate_entries_from_api()
         print('populating')
