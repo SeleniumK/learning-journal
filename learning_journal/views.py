@@ -12,11 +12,11 @@ from .apihit import populate_entries_from_api
 
 @view_config(route_name='home', renderer='templates/list.jinja2', permission='view')
 def list_view(request):
-    entries = DBSession.query(Entry).order_by(Entry.created.desc()).all()
-    if entries is None:
+    rows = DBSession.query(Entry).count()
+    if rows is 0:
         populate_entries_from_api()
-        print(populating)
-        entries = DBSession.query(Entry).order_by(Entry.created.desc()).all()
+        print('populating')
+    entries = DBSession.query(Entry).order_by(Entry.created.desc()).all()
     return {'entries': entries}
 
 
