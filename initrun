@@ -1,4 +1,4 @@
 #!/bin/bash
 set -e
 python setup.py develop
-python /scripts/initializedb.py production.ini
+python ./scripts/initializedb.py production.ini
