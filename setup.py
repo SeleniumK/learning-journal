@@ -55,6 +55,6 @@ setup(name='learning_journal',
       main = learning_journal:main
       [console_scripts]
       initialize_db = learning_journal.scripts.initializedb:main
-      load_api = learning_journal.apihit:main
+      load_api = learning_journal.scripts.apihit:main
       """,
       )
