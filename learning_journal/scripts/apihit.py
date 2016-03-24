@@ -1,7 +1,7 @@
 import os
 import requests
 import json
-from learning_journal.models import (DBSession, Entry, NewEntry, LoginPage)
+from ..models import (DBSession, Entry, NewEntry, LoginPage)
 
 
 def get_journal_entries():
